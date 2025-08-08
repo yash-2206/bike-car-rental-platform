@@ -1,0 +1,66 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "username": "owner1",
+      "password": "pbkdf2_sha256$260000$123456$hashhere==",
+      "email": "owner1@example.com",
+      "role": "owner",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "username": "renter1",
+      "password": "pbkdf2_sha256$260000$123456$hashhere==",
+      "email": "renter1@example.com",
+      "role": "renter",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "vehicles.vehicle",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "type": "Car",
+      "brand": "Toyota",
+      "model": "Innova",
+      "hourly_rate": "300.00",
+      "location": "Mumbai",
+      "available": true
+    }
+  },
+  {
+    "model": "vehicles.vehicle",
+    "pk": 2,
+    "fields": {
+      "owner": 1,
+      "type": "Bike",
+      "brand": "Yamaha",
+      "model": "FZ",
+      "hourly_rate": "100.00",
+      "location": "Pune",
+      "available": true
+    }
+  },
+  {
+    "model": "bookings.booking",
+    "pk": 1,
+    "fields": {
+      "renter": 2,
+      "vehicle": 1,
+      "start_datetime": "2025-08-08T10:00:00Z",
+      "end_datetime": "2025-08-08T14:00:00Z",
+      "total_cost": "1200.00",
+      "status": "confirmed"
+    }
+  }
+]

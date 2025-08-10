@@ -1,0 +1,117 @@
+.vehicle-detail-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  padding: 2rem;
+  background: linear-gradient(135deg, #f9fbff, #ffffff);
+  min-height: 100vh;
+}
+
+.vehicle-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  img {
+    height: 250px;
+    object-fit: cover;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #222;
+  }
+
+  .price {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #4caf50;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .features {
+    list-style: none;
+    padding: 0;
+    font-size: 0.95rem;
+    color: #444;
+
+    li {
+      margin-bottom: 0.3rem;
+    }
+  }
+}
+
+.booking-card {
+  border-radius: 12px;
+  padding: 1.5rem;
+
+  h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .date-inputs {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    div {
+      flex: 1;
+      min-width: 140px;
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+      }
+
+      input {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    button {
+      flex: 1;
+      font-weight: bold;
+    }
+  }
+
+  .availability {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+
+    &.available {
+      color: #4caf50;
+    }
+
+    &.unavailable {
+      color: #f44336;
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #888;
+}

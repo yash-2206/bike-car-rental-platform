@@ -1,0 +1,36 @@
+<div class="dashboard-container">
+  <!-- Earnings Summary -->
+  <mat-card class="summary-card">
+    <h2 class="section-title">Owner Summary</h2>
+    <div class="summary-stats">
+      <div class="stat">
+        <span class="label">Total Earnings</span>
+        <span class="value">₹{{ earnings.total_earnings }}</span>
+      </div>
+      <div class="stat">
+        <span class="label">Total Bookings</span>
+        <span class="value">{{ earnings.total_bookings }}</span>
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- Bookings List -->
+  <mat-card class="bookings-card">
+    <h2 class="section-title">Recent Bookings</h2>
+
+    <mat-list *ngIf="bookings.length > 0; else noBookings">
+      <mat-list-item *ngFor="let booking of bookings">
+        <div class="booking-info">
+          <span class="vehicle">{{ booking.vehicle?.brand }} {{ booking.vehicle?.model }}</span>
+          <span class="date">{{ booking.start_date | date:'mediumDate' }} → {{ booking.end_date | date:'mediumDate'
+            }}</span>
+        </div>
+        <div class="booking-price">₹{{ booking.total_price }}</div>
+      </mat-list-item>
+    </mat-list>
+
+    <ng-template #noBookings>
+      <p class="no-data">No bookings found.</p>
+    </ng-template>
+  </mat-card>
+</div>

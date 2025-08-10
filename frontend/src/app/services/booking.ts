@@ -1,0 +1,22 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
+@Injectable({ providedIn: 'root' })
+export class BookingService {
+  private base = `${environment.apiUrl}/bookings`;
+
+  constructor(private http: HttpClient) { }
+
+  create(payload: any) {
+    return this.http.post(this.base + '/', payload);
+  }
+
+  list() {
+    return this.http.get(this.base + '/');
+  }
+
+  ownerEarnings() {
+    return this.http.get(this.base + '/earnings/');
+  }
+}

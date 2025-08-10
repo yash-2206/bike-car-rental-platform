@@ -2,7 +2,7 @@ from django.db import models
 from users.models import User
 from vehicles.models import Vehicle
 
-print("DEBUG: bookings/models.py loaded")
+# print("DEBUG: bookings/models.py loaded")
 
 
 class Booking(models.Model):

@@ -1,0 +1,24 @@
+<mat-list>
+  <h3 mat-subheader>Your Bookings</h3>
+
+  <mat-list-item *ngFor="let b of bookings">
+    <div mat-line>
+      <strong>{{ b.vehicle?.brand }} {{ b.vehicle?.model }}</strong>
+    </div>
+    <div mat-line>
+      {{ b.start_date | date:'mediumDate' }} → {{ b.end_date | date:'mediumDate' }}
+    </div>
+    <div mat-line>
+      Location: {{ b.vehicle?.location }}
+    </div>
+    <div mat-line>
+      Total: ₹{{ b.total_amount }}
+    </div>
+  </mat-list-item>
+
+  <mat-divider *ngIf="bookings.length"></mat-divider>
+
+  <div *ngIf="!bookings.length" style="padding: 1rem; text-align: center; color: gray;">
+    No bookings found.
+  </div>
+</mat-list>

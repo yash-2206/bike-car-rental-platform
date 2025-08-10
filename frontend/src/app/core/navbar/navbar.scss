@@ -1,0 +1,30 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  .logo {
+    font-weight: bold;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: Black;
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+  a {
+    text-decoration: none;
+    color: Black;
+    font-weight: 500;
+
+    &.active-link {
+      border-bottom: 2px solid Black;
+    }
+  }
+}

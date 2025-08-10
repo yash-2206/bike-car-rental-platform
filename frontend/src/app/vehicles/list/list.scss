@@ -1,0 +1,77 @@
+.vehicles-container {
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  min-height: 100vh;
+}
+
+.search-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+
+  .search-field {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  button {
+    height: 56px;
+    font-weight: bold;
+  }
+}
+
+.vehicles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.vehicle-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  overflow: hidden;
+
+  img {
+    height: 180px;
+    object-fit: cover;
+  }
+
+  h2 {
+    margin: 0.5rem 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .price {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4caf50;
+    margin-bottom: 0.5rem;
+  }
+
+  .desc {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.empty {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+  margin-top: 3rem;
+}

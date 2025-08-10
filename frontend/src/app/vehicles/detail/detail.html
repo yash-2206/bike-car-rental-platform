@@ -1,0 +1,54 @@
+<div class="vehicle-detail-container" *ngIf="vehicle">
+  <!-- Vehicle Card -->
+  <mat-card class="vehicle-card">
+    <img mat-card-image [src]="vehicle.image || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'"
+      [alt]="vehicle.name || 'Vehicle Image'"
+      onerror="this.src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';" alt="Vehicle image">
+
+    <mat-card-content>
+      <h1>{{ vehicle.name }}</h1>
+      <p class="price">₹{{ vehicle.price }}/day</p>
+      <p class="description">{{ vehicle.description || 'No description available.' }}</p>
+      <ul class="features">
+        <li><strong>Brand:</strong> {{ vehicle.brand || 'N/A' }}</li>
+        <li><strong>Model:</strong> {{ vehicle.model || 'N/A' }}</li>
+        <li><strong>Year:</strong> {{ vehicle.year || 'N/A' }}</li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Booking Section -->
+  <mat-card class="booking-card">
+    <mat-card-content>
+      <h2>Book This Vehicle</h2>
+
+      <div class="date-inputs">
+        <div>
+          <label>Start Date</label>
+          <input type="date" [(ngModel)]="start_date">
+        </div>
+        <div>
+          <label>End Date</label>
+          <input type="date" [(ngModel)]="end_date">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" (click)="check()">Check Availability</button>
+        <button mat-raised-button color="accent" [disabled]="availability !== true" (click)="book()">Book Now</button>
+      </div>
+
+      <!-- Availability Message -->
+      <div class="availability" *ngIf="availability !== null">
+        <span [class.available]="availability" [class.unavailable]="!availability">
+          {{ availability ? '✅ Available for booking' : '❌ Not available for selected dates' }}
+        </span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Empty/Fallback State -->
+<div class="loading" *ngIf="!vehicle">
+  <p>Loading vehicle details...</p>
+</div>

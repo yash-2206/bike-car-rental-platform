@@ -1,0 +1,88 @@
+<mat-card class="vehicle-form-card">
+  <h2 class="form-title">{{ id ? 'Edit Vehicle' : 'Add Vehicle' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <!-- Brand -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Brand</mat-label>
+      <input matInput placeholder="Enter brand" formControlName="brand" />
+      <mat-error *ngIf="form.get('brand')?.hasError('required')">
+        Brand is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Model -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Model</mat-label>
+      <input matInput placeholder="Enter model" formControlName="model" />
+      <mat-error *ngIf="form.get('model')?.hasError('required')">
+        Model is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Type -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Type</mat-label>
+      <input matInput placeholder="e.g. SUV, Sedan" formControlName="type" />
+      <mat-error *ngIf="form.get('type')?.hasError('required')">
+        Type is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Price Per Day -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Price Per Day (₹)</mat-label>
+      <input matInput type="number" formControlName="price_per_day" />
+      <mat-error *ngIf="form.get('price_per_day')?.hasError('required')">
+        Price per day is required
+      </mat-error>
+      <mat-error *ngIf="form.get('price_per_day')?.hasError('min')">
+        Must be greater than 0
+      </mat-error>
+    </mat-form-field>
+
+
+    <!-- Hourly Rate -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Hourly Rate (₹)</mat-label>
+      <input matInput type="number" formControlName="hourly_rate" />
+      <mat-error *ngIf="form.get('hourly_rate')?.hasError('required')">
+        Hourly rate is required
+      </mat-error>
+      <mat-error *ngIf="form.get('hourly_rate')?.hasError('min')">
+        Must be greater than 0
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Location -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Location</mat-label>
+      <input matInput placeholder="Enter location" formControlName="location" />
+      <mat-error *ngIf="form.get('location')?.hasError('required')">
+        Location is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Images -->
+    <div class="file-upload">
+      <label for="images" class="upload-label">Upload Images</label>
+      <input type="file" id="images" (change)="onFiles($event)" accept="image/*" multiple />
+    </div>
+
+    <!-- Image previews -->
+    <div class="image-previews" *ngIf="previews.length">
+      <div class="preview" *ngFor="let img of previews">
+        <img [src]="img" alt="Vehicle Image Preview" />
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        {{ id ? 'Update Vehicle' : 'Create Vehicle' }}
+      </button>
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</mat-card>

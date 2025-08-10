@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" class="navbar">
+  <!-- Logo / Brand -->
+  <a routerLink="/" class="logo">🚗 SmartRental</a>
+
+  <!-- Spacer -->
+  <span class="spacer"></span>
+
+  <!-- Menu Links -->
+  <ng-container *ngIf="(isLogged$ | async); else guestLinks">
+    <a mat-button routerLink="/vehicles" routerLinkActive="active-link">Vehicles</a>
+
+    <ng-container *ngIf="(role$ | async) === 'owner'">
+      <a mat-button routerLink="/owner/dashboard" routerLinkActive="active-link">Dashboard</a>
+    </ng-container>
+
+    <ng-container *ngIf="(role$ | async) === 'renter'">
+      <a mat-button routerLink="/renter/bookings" routerLinkActive="active-link">My Bookings</a>
+    </ng-container>
+
+    <button mat-icon-button (click)="logout()" matTooltip="Logout">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </ng-container>
+
+  <!-- Guest Links -->
+  <ng-template #guestLinks>
+    <a mat-button routerLink="/login" routerLinkActive="active-link">Login</a>
+    <a mat-button routerLink="/register" routerLinkActive="active-link">Register</a>
+  </ng-template>
+</mat-toolbar>

@@ -41,9 +41,13 @@ A full-stack **vehicle rental application** where owners can list vehicles (cars
 - PostgreSQL (or SQLite for development)
 - Pillow (for image handling)
 
+## 📚 API Documentation (Swagger / OpenAPI)
+
+We use **drf-spectacular** to generate a standards-compliant OpenAPI schema and serve a Swagger UI.
+
+
 **DevOps**
 - Docker & Docker Compose
-- Nginx (optional for production)
 
 ---
 

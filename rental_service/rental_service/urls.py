@@ -1,12 +1,12 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from users.views import MyTokenObtainPairView  # use our custom view
+from rest_framework_simplejwt.views import TokenRefreshView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -29,8 +29,8 @@ urlpatterns = [
     path("api/vehicles/", include("vehicles.urls")),
     path("api/bookings/", include("bookings.urls")),
 
-    # JWT Auth
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    # JWT Auth (custom view with role)
+    path("api/token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 
     # Swagger & Redoc

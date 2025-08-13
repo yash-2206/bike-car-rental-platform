@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -24,11 +25,18 @@ export class Login {
     this.auth.login(this.username, this.password).subscribe({
       next: () => {
         this.snack.open('Logged in', '', { duration: 1500 });
-        // route based on role
-        this.auth.roleObservable().subscribe(role => {
-          if (role === 'owner') this.router.navigate(['/owner/dashboard']);
-          else this.router.navigate(['/vehicles']);
-        }).unsubscribe();
+
+        // Get the role synchronously from token
+        const role = this.auth.getRole();
+        console.log('Extracted role:', role); // DEBUG: check role
+
+        if (role === 'owner') {
+          this.router.navigate(['/owner/dashboard']);
+        } else if (role === 'renter') {
+          this.router.navigate(['/renter/bookings']);
+        } else {
+          this.router.navigate(['/vehicles']);
+        }
       },
       error: err => {
         this.snack.open('Login failed', '', { duration: 2000 });

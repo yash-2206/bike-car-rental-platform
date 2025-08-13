@@ -1,34 +1,45 @@
 <div class="vehicles-container">
   <!-- Search Bar -->
-  <div class="search-bar">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search Vehicles</mat-label>
-      <input matInput [(ngModel)]="query" placeholder="Type to search..." (keyup.enter)="load()">
+  <div class="search-bar" style="margin-bottom: 15px;">
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Search vehicles...</mat-label>
+      <input matInput [(ngModel)]="query" (ngModelChange)="onSearchChange()" placeholder="Brand, Model, or Location">
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="load()">Search</button>
   </div>
 
   <!-- Vehicles Grid -->
-  <div class="vehicles-grid">
-    <mat-card class="vehicle-card" *ngFor="let v of vehicles">
-      <img mat-card-image [src]="v.image || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'" 
-           [alt]="v.name || 'Vehicle Image'" 
-           onerror="this.src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';"
-        alt="Vehicle image">
-      <mat-card-content>
-        <h2>{{ v.name }}</h2>
-        <p class="price">₹{{ v.price }}/day</p>
-        <p class="desc">{{ v.description || 'No description available.' }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="accent" [routerLink]="['/vehicles', v.id]">View</button>
-        <button mat-stroked-button color="primary">Book</button>
-      </mat-card-actions>
-    </mat-card>
+  <div class="vehicles-grid row g-4">
+    <div class="col-md-4 col-sm-6" *ngFor="let v of filteredVehicles">
+      <mat-card class="vehicle-card shadow-lg border rounded-3">
+        <!-- Vehicle Image -->
+        <img mat-card-image [src]="v.images[0] || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'"
+          alt="Vehicle image" class="rounded-top"
+          onerror="this.src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';">
+
+        <!-- Vehicle Details -->
+        <mat-card-content>
+          <h4 class="fw-bold text-primary mb-1">{{ v.brand }} {{ v.model }}</h4>
+          <p class="text-muted mb-1"><strong>Type:</strong> {{ v.type }}</p>
+          <p class="text-muted mb-1"><strong>Location:</strong> {{ v.location }}</p>
+          <p class="text-success fw-bold mb-1">₹{{ v.price_per_day }}/day</p>
+          <p class="text-secondary small">Hourly: ₹{{ v.hourly_rate }}</p>
+        </mat-card-content>
+
+        <!-- Action Buttons -->
+        <mat-card-actions class="d-flex justify-content-between">
+          <button mat-raised-button color="accent" [routerLink]="['/vehicles', v.id]">
+            View
+          </button>
+          <button mat-stroked-button color="primary">
+            Book
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 
   <!-- Empty State -->
-  <div class="empty" *ngIf="vehicles.length === 0">
-    <p>No vehicles found 🚗</p>
+  <div class="empty text-center mt-4" *ngIf="filteredVehicles.length === 0">
+    <p class="text-muted fs-5">No vehicles found 🚗</p>
   </div>
 </div>

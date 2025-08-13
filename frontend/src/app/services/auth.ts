@@ -52,11 +52,28 @@ export class Auth {
   }
 
   private extractRole(): string | null {
-    const token = this.getAccessToken(); if (!token) return null;
+    const token = this.getAccessToken();
+    if (!token) return null;
     try {
       const payload: any = jwtDecode(token);
-      // adjust key if your payload stores role under different claim
-      return payload.role || payload.user_role || payload.role_name || null;
-    } catch { return null; }
+      console.log('Decoded JWT payload:', payload); // DEBUG
+
+      return (
+        payload.role ||
+        payload.user_role ||
+        payload.role_name ||
+        payload?.user?.role || // if backend nests role in a user object
+        null
+      );
+    } catch (e) {
+      console.error('Error decoding token:', e);
+      return null;
+    }
   }
+
+
+  getRole(): string | null {
+    return this.extractRole();
+  }
+
 }

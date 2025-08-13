@@ -46,6 +46,7 @@ export class VehicleForm implements OnInit {
       price_per_day: [0, [Validators.required, Validators.min(1)]],
       hourly_rate: [0, [Validators.required, Validators.min(1)]],
       location: ['', Validators.required],
+      available: [true],             // ✅ default available
       images: [null]
     });
 
@@ -57,7 +58,8 @@ export class VehicleForm implements OnInit {
           type: v.type,
           price_per_day: v.price_per_day,
           hourly_rate: v.hourly_rate,
-          location: v.location
+          location: v.location,
+          available: v.available ?? true
         });
       });
     }
@@ -67,7 +69,6 @@ export class VehicleForm implements OnInit {
     const files: File[] = Array.from(event.target.files || []);
     this.form.patchValue({ images: files });
 
-    // create previews
     this.previews = [];
     files.forEach(file => {
       const reader = new FileReader();
@@ -83,15 +84,14 @@ export class VehicleForm implements OnInit {
     }
 
     const fd = new FormData();
-    // append simple fields
     fd.append('brand', this.form.get('brand')?.value);
     fd.append('model', this.form.get('model')?.value);
     fd.append('type', this.form.get('type')?.value);
     fd.append('price_per_day', String(this.form.get('price_per_day')?.value));
     fd.append('hourly_rate', String(this.form.get('hourly_rate')?.value));
     fd.append('location', this.form.get('location')?.value);
+    fd.append('available', String(this.form.get('available')?.value)); // ✅ send available
 
-    // append images (if any)
     const files: File[] = this.form.get('images')?.value || [];
     files.forEach(f => fd.append('images', f));
 
@@ -108,7 +108,6 @@ export class VehicleForm implements OnInit {
     });
   }
 
-  // use a method so template can call it (template can't access private router)
   cancel() {
     this.router.navigate(['/owner/dashboard']);
   }

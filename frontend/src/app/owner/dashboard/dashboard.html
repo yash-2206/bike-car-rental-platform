@@ -1,36 +1,101 @@
 <div class="dashboard-container">
-  <!-- Earnings Summary -->
-  <mat-card class="summary-card">
-    <h2 class="section-title">Owner Summary</h2>
-    <div class="summary-stats">
-      <div class="stat">
-        <span class="label">Total Earnings</span>
-        <span class="value">₹{{ earnings.total_earnings }}</span>
-      </div>
-      <div class="stat">
-        <span class="label">Total Bookings</span>
-        <span class="value">{{ earnings.total_bookings }}</span>
+
+  <!-- Earnings Cards -->
+  <div class="earnings-grid">
+    <mat-card class="earning-card primary-gradient">
+      <mat-card-header>
+        <mat-icon>payments</mat-icon>
+        <mat-card-title>Total Earnings</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>₹{{ earnings.total_earnings }}</h2>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="earning-card success-gradient">
+      <mat-card-header>
+        <mat-icon>event_available</mat-icon>
+        <mat-card-title>Total Bookings</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>{{ earnings.total_bookings }}</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+<!-- Vehicles -->
+<mat-card class="section-card">
+  <mat-card-header>
+    <mat-icon>directions_car</mat-icon>
+    <mat-card-title>Your Vehicles</mat-card-title>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary" routerLink="/owner/vehicles/new">
+      <mat-icon>add</mat-icon> Add Vehicle
+    </button>
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" *ngIf="vehicles.length; else noVehicles">
+      <div class="col" *ngFor="let v of vehicles">
+        <div class="card h-100 shadow-sm">
+          <!-- Vehicle Image -->
+          <img class="card-img-top"
+            [src]="v.images[0] || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'"
+            alt="{{ v.brand }} {{ v.model }}" style="height: 180px; object-fit: cover;"
+            onerror="this.src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';">
+
+          <!-- Vehicle Details -->
+          <div class="card-body">
+            <h5 class="card-title">{{ v.brand }} {{ v.model }}</h5>
+            <p class="card-text mb-1"><strong>Location:</strong> {{ v.location }}</p>
+            <p class="card-text mb-1 text-success fw-bold">₹{{ v.price_per_day }}/day</p>
+            <p class="card-text text-muted mb-0">Hourly: ₹{{ v.hourly_rate }}</p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="card-footer d-flex justify-content-between bg-white border-0">
+            <button mat-stroked-button color="accent" [routerLink]="['/vehicles', v.id]">
+              <mat-icon>visibility</mat-icon> View
+            </button>
+            <button mat-stroked-button color="primary">
+              Book
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </mat-card>
 
-  <!-- Bookings List -->
-  <mat-card class="bookings-card">
-    <h2 class="section-title">Recent Bookings</h2>
-
-    <mat-list *ngIf="bookings.length > 0; else noBookings">
-      <mat-list-item *ngFor="let booking of bookings">
-        <div class="booking-info">
-          <span class="vehicle">{{ booking.vehicle?.brand }} {{ booking.vehicle?.model }}</span>
-          <span class="date">{{ booking.start_date | date:'mediumDate' }} → {{ booking.end_date | date:'mediumDate'
-            }}</span>
-        </div>
-        <div class="booking-price">₹{{ booking.total_price }}</div>
-      </mat-list-item>
-    </mat-list>
-
-    <ng-template #noBookings>
-      <p class="no-data">No bookings found.</p>
+    <ng-template #noVehicles>
+      <p class="empty-text text-center mt-3">
+        <mat-icon>info</mat-icon> No vehicles registered yet.
+      </p>
     </ng-template>
+  </mat-card-content>
+</mat-card>
+
+
+
+  <!-- Bookings -->
+  <mat-card class="section-card">
+    <mat-card-header>
+      <mat-icon>book_online</mat-icon>
+      <mat-card-title>Your Bookings</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <mat-list *ngIf="bookings.length; else noBookings">
+        <mat-list-item *ngFor="let b of bookings">
+          <mat-icon matListIcon>directions_car_filled</mat-icon>
+          <div matLine class="fw-bold">{{ b.vehicle?.brand }} {{ b.vehicle?.model }}</div>
+          <div matLine>{{ b.start_date | date:'mediumDate' }} → {{ b.end_date | date:'mediumDate' }}</div>
+        </mat-list-item>
+      </mat-list>
+      <ng-template #noBookings>
+        <p class="empty-text"><mat-icon>calendar_today</mat-icon> No bookings yet.</p>
+      </ng-template>
+    </mat-card-content>
   </mat-card>
+
 </div>

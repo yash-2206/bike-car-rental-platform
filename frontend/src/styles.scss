@@ -37,3 +37,14 @@ body {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --header-height: 64px; // adjust to your Material toolbar height
+  --footer-height: 56px; // adjust to your footer height
+}
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, #28a745, #1e7e34);
+}

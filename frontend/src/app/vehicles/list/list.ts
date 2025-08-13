@@ -16,16 +16,28 @@ import { CommonModule } from '@angular/common';
 })
 export class List implements OnInit {
   vehicles: any[] = [];
-  query = '';
-
+  filteredVehicles: any[] = [];  // ✅ now defined
+  query: string = '';
 
   constructor(private svc: VehicleService) { }
 
-  ngOnInit() { this.load(); }
+  ngOnInit() {
+    this.load();
+  }
 
   load() {
-    const params: any = {};
-    if (this.query) params.search = this.query;
-    this.svc.list(params).subscribe((r: any) => this.vehicles = r);
+    this.svc.list().subscribe((r: any) => {
+      this.vehicles = r;
+      this.filteredVehicles = [...this.vehicles]; // ✅ copy for filtering
+    });
+  }
+
+  onSearchChange() {
+    const q = this.query.toLowerCase().trim();
+    this.filteredVehicles = this.vehicles.filter(v =>
+      v.brand?.toLowerCase().includes(q) ||
+      v.model?.toLowerCase().includes(q) ||
+      v.location?.toLowerCase().includes(q)
+    );
   }
 }

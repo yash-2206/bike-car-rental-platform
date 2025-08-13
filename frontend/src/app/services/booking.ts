@@ -9,14 +9,14 @@ export class BookingService {
   constructor(private http: HttpClient) { }
 
   create(payload: any) {
-    return this.http.post(this.base + '/', payload);
+    return this.http.post(`${this.base}/`, payload);
   }
 
-  list() {
-    return this.http.get(this.base + '/');
+  list(params?: any) {
+    return this.http.get(`${this.base}/`, { params });
   }
 
   ownerEarnings() {
-    return this.http.get(this.base + '/earnings/');
+    return this.http.get(`${this.base}/earnings/`);
   }
 }

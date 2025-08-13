@@ -1,16 +1,21 @@
 from rest_framework import serializers
-from .models import Booking
+from .models import Booking, Vehicle
+
+class VehicleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vehicle
+        fields = ['id', 'brand', 'model', 'location', 'price_per_day']
 
 class BookingSerializer(serializers.ModelSerializer):
-    # These are only for request input, not stored directly in DB
-    start_date = serializers.DateField(write_only=True)
-    end_date = serializers.DateField(write_only=True)
+    vehicle = VehicleSerializer(read_only=True)  # nested details
+    start_date = serializers.SerializerMethodField()
+    end_date = serializers.SerializerMethodField()
 
     class Meta:
         model = Booking
         fields = [
             'id',
-            'vehicle_id',
+            'vehicle',
             'renter',
             'start_datetime',
             'end_datetime',
@@ -18,10 +23,9 @@ class BookingSerializer(serializers.ModelSerializer):
             'start_date',
             'end_date'
         ]
-        read_only_fields = ['id', 'renter', 'start_datetime', 'end_datetime', 'total_cost']
 
-    def create(self, validated_data):
-        # Remove request-only fields before creating the booking
-        validated_data.pop('start_date', None)
-        validated_data.pop('end_date', None)
-        return super().create(validated_data)
+    def get_start_date(self, obj):
+        return obj.start_datetime.date()
+
+    def get_end_date(self, obj):
+        return obj.end_datetime.date()

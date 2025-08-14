@@ -1,9 +1,17 @@
-.booking-item {
+.booking-items {
   margin-bottom: 8px;
+  border: 1px solid black;
 }
 
 .empty {
   text-align: center;
   color: gray;
   padding: 1rem;
+}
+.card {
+  border: 1px solid black;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 4px;
+  padding-left: 10px;
 }

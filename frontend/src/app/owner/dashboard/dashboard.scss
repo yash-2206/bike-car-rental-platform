@@ -68,3 +68,38 @@
   justify-content: center;
   gap: 0.5rem;
 }
+.vehicle-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding-bottom: 8px;
+  scrollbar-width: thin; /* Firefox */
+}
+
+.vehicle-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.vehicle-scroll::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.vehicle-card {
+  flex: 0 0 auto; /* Prevent shrinking */
+  width: 300px;
+  margin: 20px;   /* Card width */
+}
+
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
+
+button {
+  margin: 5px 5px;
+}
+.card-title {
+  font-size: 1rem;
+  font-weight: 500;
+}

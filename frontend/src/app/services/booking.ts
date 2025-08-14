@@ -17,6 +17,6 @@ export class BookingService {
   }
 
   ownerEarnings() {
-    return this.http.get(`${this.base}/earnings/`);
+    return this.http.get(`${this.base}/owner_earnings/`);
   }
 }

@@ -7,9 +7,19 @@ from .serializers import VehicleSerializer
 from bookings.models import Booking
 
 class VehicleViewSet(viewsets.ModelViewSet):
-    queryset = Vehicle.objects.all()
+    
     serializer_class = VehicleSerializer
     permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        """
+        - If client passes ?mine=true return only vehicles owned by request.user.
+        - Otherwise return all vehicles (existing behavior).
+        """
+        qs = Vehicle.objects.all()
+        mine = self.request.query_params.get('mine')
+        if mine and mine.lower() == 'true' and self.request.user and self.request.user.is_authenticated:
+            return qs.filter(owner=self.request.user)
+        return qs
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

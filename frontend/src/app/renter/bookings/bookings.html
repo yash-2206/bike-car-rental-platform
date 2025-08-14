@@ -1,25 +1,49 @@
-<mat-list>
-  <h3 mat-subheader>My Bookings</h3>
+<div class="container my-4">
+  <h4 class="mb-3">My Bookings</h4>
 
-  <mat-list-item *ngFor="let b of bookings" class="booking-item">
-    <div mat-line>
-      <strong>
-        {{ b?.vehicle?.brand && b?.vehicle?.model
-        ? (b.vehicle.brand + ' ' + b.vehicle.model)
-        : ('Vehicle #' + b.vehicle_id) }}
-      </strong>
-    </div>
-    <div mat-line>
-      {{ b.start_datetime | date:'mediumDate' }} → {{ b.end_datetime | date:'mediumDate' }}
-    </div>
-    <div mat-line>
-      Total: ₹{{ b.total_cost }}
-    </div>
-  </mat-list-item>
+  <div *ngIf="bookings.length; else noBookings">
+    <div class="row g-4">
+      <div *ngFor="let b of bookings" class="col-md-6 col-lg-4">
+        
+        <div class="card shadow-sm border-0 h-100">
+          
+          <!-- Vehicle Image (optional) -->
+          <img *ngIf="b?.vehicle?.image" 
+               [src]="b.vehicle.image" 
+               class="card-img-top" 
+               alt="Vehicle image">
+          
+          <div class="card-body">
+            <h5 class="card-title text-primary">
+              {{ b?.vehicle?.brand && b?.vehicle?.model
+                ? (b.vehicle.brand + ' ' + b.vehicle.model)
+                : ('Vehicle #' + b.vehicle_id) }}
+            </h5>
 
-  <mat-divider *ngIf="bookings.length"></mat-divider>
+            <div class="mb-2">
+              <span class="badge bg-secondary me-1">
+                From: {{ b.start_datetime | date:'mediumDate' }}
+              </span>
+              <span class="badge bg-secondary">
+                To: {{ b.end_datetime | date:'mediumDate' }}
+              </span>
+            </div>
 
-  <div *ngIf="!bookings.length" class="empty">
-    No bookings found.
+            <p class="card-text text-success fw-bold fs-5">
+              ₹{{ b.total_cost }}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
   </div>
-</mat-list>
+
+  <!-- Empty state -->
+  <ng-template #noBookings>
+    <div class="alert alert-info text-center">
+      No bookings found.
+    </div>
+  </ng-template>
+</div>

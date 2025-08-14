@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  background: linear-gradient(135deg, #f6543b, #06b6d4);
   font-family: 'Segoe UI', sans-serif;
 }
 
@@ -38,6 +38,7 @@
   border-radius: 8px;
   border: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 1rem;
 
   &:hover {
     transform: translateY(-2px);
@@ -51,4 +52,12 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.form-label {
+  font-weight: bold;
+  margin: 0.5rem;
+}
+.form-control {
+  margin: 0.5rem;
 }

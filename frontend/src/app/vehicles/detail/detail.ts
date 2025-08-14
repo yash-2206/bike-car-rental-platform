@@ -67,18 +67,13 @@ export class Detail implements OnInit {
     if (!this.ensureOneDayMin()) return;
     const payload = {
       vehicle_id: this.vehicle.id,
-      start_date: this.start_date,
-      end_date: this.end_date
+      start_datetime: `${this.start_date}T00:00:00Z`,
+      end_datetime: `${this.end_date}T00:00:00Z`
     };
+
     this.bs.create(payload).subscribe({
-      next: () => {
-        this.snack.open('Booked', '', { duration: 1500 });
-        // (Renter will see it under My Bookings automatically via /bookings list)
-      },
-      error: e => {
-        console.error(e);
-        this.snack.open('Booking failed', '', { duration: 2000 });
-      }
+      next: res => console.log('Booking success', res),
+      error: err => console.error('Booking error:', err.error)
     });
   }
 }

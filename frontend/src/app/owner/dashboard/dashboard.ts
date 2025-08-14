@@ -7,11 +7,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-owner-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatCardModule, MatListModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterLink, MatCardModule, MatListModule, MatButtonModule, MatIconModule, CommonModule],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
@@ -27,8 +29,36 @@ export class Dashboard implements OnInit {
   }
 
   loadDashboardData() {
+    // earnings and bookings stay the same
     this.bs.ownerEarnings().subscribe((r: any) => (this.earnings = r));
     this.bs.list().subscribe((r: any) => (this.bookings = r));
-    this.vs.list().subscribe((v: any) => (this.vehicles = v));
+
+    // Request only vehicles owned by the logged-in user:
+    this.vs.list({ mine: 'true' }).subscribe((v: any) => {
+      // 'v' should be an array of vehicles owned by the current user
+      this.vehicles = v || [];
+    }, err => {
+      console.error('Failed to load owner vehicles', err);
+      this.vehicles = [];
+    });
   }
+
+  deleteVehicle(vehicleId: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.vs.delete(vehicleId).subscribe(() => {
+          this.vehicles = this.vehicles.filter(v => v.id !== vehicleId);
+          Swal.fire('Deleted!', 'Your vehicle has been deleted.', 'success');
+        });
+      }
+    });
+  }
+
 }

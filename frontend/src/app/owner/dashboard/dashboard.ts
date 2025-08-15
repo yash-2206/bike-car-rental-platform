@@ -61,4 +61,8 @@ export class Dashboard implements OnInit {
     });
   }
 
+  onImageError(event: Event) {
+    (event.target as HTMLImageElement).src = 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';
+  }
+
 }

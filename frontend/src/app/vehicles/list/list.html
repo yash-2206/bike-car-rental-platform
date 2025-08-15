@@ -1,4 +1,36 @@
+
+<!-- hero.component.html -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="animate-fade-in">Rent Your Dream Ride,
+      Anytime!</h1>
+    <p class="animate-slide-up">
+      From bikes to luxury cars — find, book, and ride with ease using our platform.
+    </p>
+    <div class="hero-buttons animate-slide-up">
+      <button mat-raised-button color="primary" >
+        Browse Vehicles
+      </button>
+      <button mat-raised-button color="accent" >
+        Learn More
+      </button>
+    </div>
+  </div>
+
+  <div class="hero-images">
+    <img src="https://cdn-icons-png.flaticon.com/512/744/744465.png" alt="Bike Logo" class="bike animate-float">
+    <img src="https://cdn-icons-png.flaticon.com/512/743/743922.png" alt="Car Logo" class="car animate-float-delay">
+  </div>
+
+  <!-- Decorative shapes -->
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+  <div class="shape shape3"></div>
+</section>
+<!-- End of hero.component.html -->
+
 <div class="vehicles-container">
+
   <!-- Search Bar -->
   <div class="search-bar" style="margin-bottom: 15px;">
     <mat-form-field appearance="outline" style="width: 100%;">
@@ -12,9 +44,8 @@
     <div class="col-md-4 col-sm-6" *ngFor="let v of filteredVehicles">
       <mat-card class="vehicle-card shadow-lg border rounded-3">
         <!-- Vehicle Image -->
-        <img mat-card-image [src]="v.images[0] || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'"
-          alt="Vehicle image" class="rounded-top"
-          onerror="this.src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';">
+        <img mat-card-image [src]="v?.image_url || v?.images?.[0]?.image_url || 'assets/images/placeholder-vehicle.jpg'"
+          alt="Vehicle image" class="rounded-top" (error)="onImageError($event)">
 
         <!-- Vehicle Details -->
         <mat-card-content>

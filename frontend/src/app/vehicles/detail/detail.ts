@@ -76,4 +76,8 @@ export class Detail implements OnInit {
       error: err => console.error('Booking error:', err.error)
     });
   }
+  onImageError(event: Event) {
+    (event.target as HTMLImageElement).src = 'assets/images/placeholder-vehicle.jpg';
+  }
+
 }

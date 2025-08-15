@@ -2,7 +2,7 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.utils.dateparse import parse_date
-from .models import Vehicle
+from .models import Vehicle, VehicleImage
 from .serializers import VehicleSerializer
 from bookings.models import Booking
 
@@ -22,7 +22,23 @@ class VehicleViewSet(viewsets.ModelViewSet):
         return qs
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        # save owner
+        vehicle = serializer.save(owner=self.request.user)
+
+        # handle uploaded images (key = 'images')
+        for f in self.request.FILES.getlist('images'):
+            VehicleImage.objects.create(vehicle=vehicle, image=f)
+
+    def perform_update(self, serializer):
+        # update fields first
+        vehicle = serializer.save()
+
+        # If frontend sends new images, add them (or you can delete old ones first)
+        images = self.request.FILES.getlist('images')
+        if images:
+            # Option A: append new images
+            for f in images:
+                VehicleImage.objects.create(vehicle=vehicle, image=f)
 
     @action(detail=False, methods=['get'], url_path='availability')
     def availability(self, request):

@@ -42,9 +42,10 @@
           <div class="card h-100 shadow-sm">
             <!-- Vehicle Image -->
             <img class="card-img-top"
-              [src]="v.images[0] || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'"
-              alt="{{ v.brand }} {{ v.model }}" style="height: 180px; object-fit: cover;"
-              onerror="this.src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';">
+              [src]="v?.images?.[0]?.image_url || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'"
+              [alt]="(v?.brand || '') + ' ' + (v?.model || '')" style="height: 180px; object-fit: cover;"
+              (error)="onImageError($event)">
+
   
             <!-- Vehicle Details -->
             <div class="card-body">

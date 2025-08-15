@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,6 +46,8 @@ INSTALLED_APPS = [
     "users",
     "vehicles",
     "bookings",
+     'cloudinary',
+    'cloudinary_storage',
 ]
 
 INSTALLED_APPS += ['drf_yasg']
@@ -158,4 +163,20 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+# Cloudinary credentials from env
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+# Use Cloudinary for Media files
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+# MEDIA_URL left as is, Cloudinary storage will provide the remote URLs
+MEDIA_URL = '/media/'
+
+
 CORS_ALLOWED_ORIGINS = ["http://localhost:4200"]

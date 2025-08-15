@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from cloudinary.models import CloudinaryField
 
 class Vehicle(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vehicles')
@@ -13,5 +14,5 @@ class Vehicle(models.Model):
 
 class VehicleImage(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='vehicle_images/')
+    image = CloudinaryField('image') 
 

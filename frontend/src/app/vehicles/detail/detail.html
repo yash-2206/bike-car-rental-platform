@@ -1,18 +1,19 @@
 <div class="vehicle-detail-container" *ngIf="vehicle">
   <!-- Vehicle Card -->
   <mat-card class="vehicle-card">
-    <img mat-card-image [src]="vehicle.image || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'"
+    <img mat-card-image [src]="vehicle.images?.[0]?.image_url || 'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg'"
       [alt]="vehicle.name || 'Vehicle Image'"
       onerror="this.src='https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';" alt="Vehicle image">
 
     <mat-card-content>
       <h1>{{ vehicle.name }}</h1>
-      <p class="price">₹{{ vehicle.price }}/day</p>
-      <p class="description">{{ vehicle.description || 'No description available.' }}</p>
+      <p class="price">₹{{ vehicle.price_per_day}}/day</p>
+      
       <ul class="features">
+        <li><strong>Type:</strong> {{ vehicle.type || 'N/A' }}</li>
         <li><strong>Brand:</strong> {{ vehicle.brand || 'N/A' }}</li>
         <li><strong>Model:</strong> {{ vehicle.model || 'N/A' }}</li>
-        <li><strong>Year:</strong> {{ vehicle.year || 'N/A' }}</li>
+        <li><strong>Location:</strong> {{ vehicle.location || 'N/A' }}</li>
       </ul>
     </mat-card-content>
   </mat-card>

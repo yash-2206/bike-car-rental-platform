@@ -40,4 +40,10 @@ export class List implements OnInit {
       v.location?.toLowerCase().includes(q)
     );
   }
+  onImageError(event: Event) {
+    (event.target as HTMLImageElement).src =
+      'https://cdn.pixabay.com/photo/2012/05/29/00/43/car-49278_1280.jpg';
+  }
+
+
 }

@@ -19,4 +19,8 @@ export class BookingService {
   ownerEarnings() {
     return this.http.get(`${this.base}/owner_earnings/`);
   }
+  delete(id: number) {
+    return this.http.delete(`${this.base}/${id}/`);
+  }
+
 }

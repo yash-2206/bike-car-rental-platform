@@ -36,7 +36,7 @@ body {
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; padding: 1px; }
 :root {
   --header-height: 64px; // adjust to your Material toolbar height
   --footer-height: 56px; // adjust to your footer height

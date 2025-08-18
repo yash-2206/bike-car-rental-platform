@@ -119,13 +119,18 @@
   gap: 1rem;
   z-index: 200;
 }
-
 .hero-images img {
   width: 250px;
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* Hide on small & medium screens */
+@media (max-width: 1199px) {
+  .hero-images img {
+    display: none;
+  }
+}
 /* Decorative Shapes */
 .shape {
   position: absolute;
